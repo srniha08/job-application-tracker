@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jobly — Your Career Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Onboarding Screen -->
+    <div class="onboarding-screen" id="onboardingScreen">
+        <div class="onboarding-content">
+            <div class="onboarding-logo">
+                <svg class="graduation-cap" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                </svg>
+            </div>
+            <div class="onboarding-text">
+                <h1>Hey, welcome to jobly.</h1>
+                <p>Before we start,</p>
+                <p class="onboarding-question">what should I call you?</p>
+            </div>
+            <form id="onboardingForm" class="onboarding-form">
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        id="userNameInput" 
+                        placeholder="Your name"
+                        autocomplete="name"
+                        required
+                        maxlength="30"
+                    >
+                </div>
+                <button type="submit" class="btn btn-primary btn-large">
+                    Start my journey →
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="app-container" id="appContainer" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-container">
+                <div class="header-brand">
+                    <a href="#" class="logo" onclick="showDashboard()">
+                        <svg class="graduation-cap-small" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                        </svg>
+                        <span>jobly</span>
+                    </a>
+                </div>
+                <div class="header-actions">
+                    <div class="search-desktop">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Search company, role or location..."
+                            aria-label="Search applications"
+                        >
+                    </div>
+                    <button id="addApplicationBtn" class="btn btn-primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M12 5v14M5 12h14"></path>
+                        </svg>
+                        <span>Add Application</span>
+                    </button>
+                    <button id="themeToggle" class="btn btn-icon" aria-label="Toggle theme">
+                        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+                        </svg>
+                        <svg class="moon-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard View -->
+            <div id="dashboardView" class="view active">
+                <!-- Greeting Section -->
+                <section class="greeting-section">
+                    <h1 class="greeting" id="greetingText">Good morning, User ☀️</h1>
+                    <p class="greeting-subtitle" id="greetingSubtitle">A fresh day. Another chance to move closer to the right opportunity.</p>
+                </section>
+
+                <!-- Statistics Cards -->
+                <section class="stats-section">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon stat-icon-total">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-label">Your Journey</span>
+                                <span class="stat-value" id="statTotal">0</span>
+                                <span class="stat-sublabel">applications</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon stat-icon-applied">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-label">Applications</span>
+                                <span class="stat-value" id="statApplied">0</span>
+                                <span class="stat-sublabel">Keep putting yourself out there</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon stat-icon-interview">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <path d="M16 2v4M8 2v4M3 10h18"></path>
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-label">Interviews</span>
+                                <span class="stat-value" id="statInterview">0</span>
+                                <span class="stat-sublabel">You're getting noticed</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon stat-icon-offer">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-label">Offers</span>
+                                <span class="stat-value" id="statOffer">0</span>
+                                <span class="stat-sublabel">The hard work is paying off</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon stat-icon-rejected">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M15 9l-6 6M9 9l6 6"></path>
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-label">Keep Going</span>
+                                <span class="stat-value" id="statRejected">0</span>
+                                <span class="stat-sublabel">The right one still can</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Today's Interview Banner -->
+                <section class="today-interview-section" id="todayInterviewSection" style="display: none;">
+                    <div class="today-interview-card">
+                        <div class="today-badge">🎯 Today's your interview</div>
+                        <div class="today-interview-details" id="todayInterviewDetails">
+                            <!-- Dynamically rendered -->
+                        </div>
+                        <p class="today-motivation">You've already made it this far. Go show them what you bring.</p>
+                    </div>
+                </section>
+
+                <!-- Upcoming Interviews Section -->
+                <section class="upcoming-section" id="upcomingSection">
+                    <div class="section-header">
+                        <h2>Upcoming interviews</h2>
+                        <span class="section-count" id="upcomingCount">0</span>
+                    </div>
+                    <div class="upcoming-list" id="upcomingList">
+                        <!-- Dynamically rendered -->
+                    </div>
+                </section>
+
+                <!-- Applications Section -->
+                <section class="applications-section">
+                    <div class="section-header">
+                        <h2>Your applications</h2>
+                        <p class="section-description">Every application tells part of your career story.</p>
+                        <div class="section-actions">
+                            <select id="statusFilter" class="filter-select" aria-label="Filter by status">
+                                <option value="all">All applications</option>
+                                <option value="Applied">Applied</option>
+                                <option value="Interview Scheduled">Interview Scheduled</option>
+                                <option value="Interview Done">Interview Done</option>
+                                <option value="Offer">Offer</option>
+                                <option value="Rejected">Rejected</option>
+                            </select>
+                            <select id="sortOptions" class="filter-select" aria-label="Sort applications">
+                                <option value="newest">Newest first</option>
+                                <option value="oldest">Oldest first</option>
+                                <option value="company-asc">Company A-Z</option>
+                                <option value="company-desc">Company Z-A</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Applications List -->
+                    <div class="applications-list" id="applicationsList">
+                        <!-- Dynamically rendered -->
+                    </div>
+
+                    <!-- Empty State -->
+                    <div class="empty-state" id="emptyState" style="display: none;">
+                        <div class="empty-icon">
+                            <svg class="graduation-cap-large" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                            </svg>
+                        </div>
+                        <h3>Your next chapter starts here</h3>
+                        <p class="empty-subtext">Every great career begins with one opportunity.<br>Track your applications, prepare for interviews,<br>and celebrate every step forward.</p>
+                        <button id="emptyStateAddBtn" class="btn btn-primary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M12 5v14M5 12h14"></path>
+                            </svg>
+                            Add your first application
+                        </button>
+                    </div>
+
+                    <!-- No Results State -->
+                    <div class="empty-state" id="noResultsState" style="display: none;">
+                        <div class="empty-icon">🔍</div>
+                        <h3>Nothing here yet</h3>
+                        <p>Your next opportunity could be the next one you add.</p>
+                        <button id="clearSearchBtn" class="btn btn-secondary">Clear search</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Mobile Bottom Navigation -->
+        <nav class="mobile-nav">
+            <button class="nav-item active" onclick="showDashboard()" data-view="dashboard">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Home</span>
+            </button>
+            <button class="nav-item" onclick="showDashboard()" data-view="applications">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Applications</span>
+            </button>
+            <button class="nav-item" onclick="alert('Settings coming soon!')" data-view="settings">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>Settings</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Add/Edit Application Modal -->
+    <div class="modal-overlay" id="applicationModal">
+        <div class="modal modal-application">
+            <div class="modal-header">
+                <div>
+                    <h3 id="modalTitle">Add a new opportunity</h3>
+                    <p class="modal-subtitle">One small step toward your next chapter.</p>
+                </div>
+                <button class="modal-close" id="modalClose" aria-label="Close modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <form id="applicationForm" class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="companyName">Company name <span class="required">*</span></label>
+                        <input 
+                            type="text" 
+                            id="companyName" 
+                            placeholder="e.g., Google"
+                            required
+                            autocomplete="off"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="position">Position <span class="required">*</span></label>
+                        <input 
+                            type="text" 
+                            id="position" 
+                            placeholder="e.g., Junior Developer"
+                            required
+                            autocomplete="off"
+                        >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="location">Location <span class="required">*</span></label>
+                        <input 
+                            type="text" 
+                            id="location" 
+                            placeholder="Dhaka / Remote / Hybrid"
+                            required
+                            autocomplete="off"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="appliedDate">Applied date <span class="required">*</span></label>
+                        <input 
+                            type="date" 
+                            id="appliedDate" 
+                            required
+                        >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Status <span class="required">*</span></label>
+                    <div class="status-pills">
+                        <label class="status-pill">
+                            <input type="radio" name="status" value="Applied" checked>
+                            <span class="pill">Applied</span>
+                        </label>
+                        <label class="status-pill">
+                            <input type="radio" name="status" value="Interview Scheduled">
+                            <span class="pill">Interview Scheduled</span>
+                        </label>
+                        <label class="status-pill">
+                            <input type="radio" name="status" value="Interview Done">
+                            <span class="pill">Interview Done</span>
+                        </label>
+                        <label class="status-pill">
+                            <input type="radio" name="status" value="Offer">
+                            <span class="pill">Offer</span>
+                        </label>
+                        <label class="status-pill">
+                            <input type="radio" name="status" value="Rejected">
+                            <span class="pill">Rejected</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group hidden" id="interviewDetailsGroup">
+                    <label class="interview-label">Interview Details</label>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="interviewDate">Interview date <span class="required">*</span></label>
+                            <input 
+                                type="date" 
+                                id="interviewDate"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="interviewTime">Interview time <span class="required">*</span></label>
+                            <input 
+                                type="time" 
+                                id="interviewTime"
+                            >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="interviewType">Interview type <span class="required">*</span></label>
+                        <select id="interviewType">
+                            <option value="">Select type</option>
+                            <option value="In Person">In Person</option>
+                            <option value="Online">Online</option>
+                            <option value="Phone Call">Phone Call</option>
+                        </select>
+                    </div>
+                    <div class="form-group hidden" id="venueGroup">
+                        <label for="interviewVenue">Venue / Address <span class="required">*</span></label>
+                        <input 
+                            type="text" 
+                            id="interviewVenue" 
+                            placeholder="Office address, building name, floor..."
+                        >
+                    </div>
+                    <div class="form-group hidden" id="platformGroup">
+                        <label for="interviewPlatform">Meeting platform <span class="required">*</span></label>
+                        <select id="interviewPlatform">
+                            <option value="">Select platform</option>
+                            <option value="Google Meet">Google Meet</option>
+                            <option value="Zoom">Zoom</option>
+                            <option value="Microsoft Teams">Microsoft Teams</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group hidden" id="linkGroup">
+                        <label for="interviewLink">Meeting link</label>
+                        <input 
+                            type="url" 
+                            id="interviewLink" 
+                            placeholder="https://..."
+                        >
+                    </div>
+                    <div class="form-group hidden" id="contactGroup">
+                        <label for="interviewContact">Contact / Details</label>
+                        <input 
+                            type="text" 
+                            id="interviewContact" 
+                            placeholder="Phone number or contact person..."
+                        >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="jobLink">Job posting URL</label>
+                    <input 
+                        type="url" 
+                        id="jobLink" 
+                        placeholder="https://..."
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea 
+                        id="notes" 
+                        placeholder="Applied through LinkedIn. Recruiter mentioned a technical interview..."
+                        rows="3"
+                    ></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveBtn">Save opportunity</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Interview Done Modal -->
+    <div class="modal-overlay" id="interviewDoneModal">
+        <div class="modal modal-interview-done">
+            <div class="modal-header">
+                <h3>How did it go?</h3>
+                <button class="modal-close" id="interviewDoneModalClose" aria-label="Close modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="interview-confirm-text" id="interviewConfirmText">You've completed your interview.</p>
+                <p class="interview-motivation">That's progress worth recognizing.</p>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="cancelInterviewDoneBtn">Not yet</button>
+                <button type="button" class="btn btn-primary" id="confirmInterviewDoneBtn">Interview done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
